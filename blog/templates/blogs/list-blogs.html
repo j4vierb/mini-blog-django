@@ -1,0 +1,17 @@
+{% extends "base_layout.html" %}
+
+{% block content %}
+  <h1> Listing</h1>
+  <ul>
+    {% if not blogs %}
+      <h2>There's no blogs to show.</h2>
+    {% endif %}
+
+    {% for blog in blogs %}
+      <li>
+        <h2>{{blog.title}}</h2>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
