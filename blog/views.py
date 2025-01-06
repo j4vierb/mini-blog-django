@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 def main(request):
   return render(request, 'blog/index.html')
 
-from .models import Blog, Blogger
+from .models import Blog, Blogger, Comment
 
 class BlogListView(ListView):
   model = Blog
@@ -14,12 +14,18 @@ class BlogListView(ListView):
   ordering = ['-date_posted']
   paginate_by = 5
 
-# TODO: Section of comments.
-# TODO: Comments should to be order by date_posted (oldest first).
+# TODO: Contains link to add comments at end for logged in users (see Comment form page)
+# TODO: 
 class BlogDetailView(DetailView):
   model = Blog
   template_name = 'blogs/detail.html'
   context_object_name = 'blog'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['comments'] = Comment.objects.all().filter(blog_id=self.kwargs['pk']).order_by('date_posted')
+    
+    return context
 
 class BloggerDetailView(DetailView):
   model = Blogger
