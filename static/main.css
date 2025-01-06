@@ -8,6 +8,10 @@
   text-decoration: none;
 }
 
+/* * a.general-link:visited {
+  color: #09f;
+}
+ */
 main {
   display: flex;
   flex-direction: row;
@@ -22,6 +26,8 @@ main nav {
   max-width: 120px;
 }
 
-main div.content {
-  width: auto;
+.content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 }
