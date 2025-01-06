@@ -1,0 +1,12 @@
+{% extends "base_layout.html" %}
+
+{% block content %}
+  <ul>
+    {% if not blogger %}
+      <h2>There's no blogger to show.</h2>
+    {% else %}
+      <h1>Blogger {{blogger.username}}</h1>
+      <p>{{blogger.bio}}</p>
+    {% endif %}
+  </ul>
+{% endblock %}

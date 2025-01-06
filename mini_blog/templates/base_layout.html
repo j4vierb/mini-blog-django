@@ -8,6 +8,17 @@
   <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
 <body>
-  {% block content %}{% endblock %}
+  <header>
+    <h1>MiniBlog</h1>
+  </header>
+  <main>
+    <nav>
+      <h3> <a href="{% url 'blog' %}">Home</a> </h3>
+      <h3> <a href="{% url 'blogs' %}">Blogs</a> </h3>
+    </nav>
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
 </body>
 </html>
