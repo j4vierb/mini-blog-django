@@ -21,8 +21,13 @@ class BlogDetailView(DetailView):
   template_name = 'blogs/detail.html'
   context_object_name = 'blog'
 
-# TODO: Add a list of all posts made by a blogger to the BloggerDetailView. Only show blog post date and name.
 class BloggerDetailView(DetailView):
   model = Blogger
   template_name = 'bloggers/detail.html'
   context_object_name = 'blogger'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['blogs'] = Blog.objects.filter(blogger_id=self.kwargs['pk']).order_by('-date_posted')
+
+    return context

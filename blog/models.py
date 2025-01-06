@@ -7,7 +7,12 @@ class Blog(models.Model):
   title = models.CharField(max_length=100, help_text=_('Enter the title of the blog'))
   content = models.TextField(help_text=_('Enter the content of the blog'))
   date_posted = models.DateTimeField(auto_now_add=True, help_text=_('Enter the date the blog was posted'))
-  blogger = models.ForeignKey('Blogger', related_name='blogs', help_text=_('Select the blogger that writes this post'), on_delete=models.DO_NOTHING) # from blogger we acces blogs using related_name
+  blogger = models.ForeignKey(
+    'Blogger',
+    related_name='blogs', # this is the related name to access blogs from blogger (no more blog_set)
+    help_text=_('Select the blogger that writes this post'),
+    on_delete=models.DO_NOTHING
+  ) # from blogger we acces blogs using related_name
 
   def __str__(self):
     return self.title
