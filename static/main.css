@@ -18,8 +18,8 @@ main nav {
   border: 3px solid black;
   border-radius: 5px;
   width: 20vw;
-  min-width: 100px;
-  max-width: 120px;
+  min-width: 150px;
+  max-width: 200px;
 }
 
 .content {

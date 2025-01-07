@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Blog(models.Model):
@@ -39,6 +40,13 @@ class Blogger(models.Model):
     help_text=_('Enter the bio of the blogger'),
     blank=True
   )
+  user = models.OneToOneField(
+    User,
+    related_name='blogger',
+    help_text=_('Select the user that this blogger belongs to'),
+    on_delete=models.CASCADE,
+    unique=True
+  )
 
   def __str__(self):
     return self.username
@@ -72,6 +80,9 @@ class Comment(models.Model):
 
   def __str__(self):
     return f'{self.content[:20]}...'
+  
+  def get_absolute_url(self):
+    return reverse('blog-detail', kwargs={'pk': self.blog.pk})
   
   class Meta:
     db_table = 'comment'

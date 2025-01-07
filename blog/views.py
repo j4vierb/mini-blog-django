@@ -57,9 +57,25 @@ class CommentEditView(UpdateView):
     blog_id = self.kwargs['blog_id']
     return Blog.objects.get(id=blog_id).get_absolute_url()
 
-# TODO: This isn't working yet to create a new comment because we don't have
-# authentication.
+# TODO: Logged out users will be directed to the login page to log in,
+# before they can add comments. After logging in, they will be redirected
+# back to the blog page they wanted to comment on.
 class CommentCreateView(CreateView):
   model = Comment
   template_name = 'comments/edit.html'
   fields = ['content']
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['blog_id'] = self.kwargs['blog_id']
+
+    return context
+
+  def form_valid(self, form):
+    blog_id = self.kwargs['blog_id']
+    user = self.request.user
+    
+    form.instance.blog = Blog.objects.get(id=blog_id)
+    form.instance.blogger = Blogger.objects.get(user=user)
+  
+    return super().form_valid(form)

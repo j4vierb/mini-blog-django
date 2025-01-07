@@ -16,6 +16,17 @@
       <h3> <a href="{% url 'blog' %}">Home</a> </h3>
       <h3> <a href="{% url 'blogs' %}">Blogs</a> </h3>
       <h3> <a href="{% url 'bloggers' %}">Bloggers</a> </h3>
+
+      <br/> <hr />
+      {% if user.is_authenticated %}
+        <p> Current user: <b><i>{{user}}</b></i> </p>
+        <form method="POST" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+      {% else %}
+        <p> <a href="{% url 'login' %}">Login</a> </p>
+      {% endif %}
     </nav>
     <div class="content">
       {% block content %}{% endblock %}

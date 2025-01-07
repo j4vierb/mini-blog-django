@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig',
+    'authentication.apps.AuthenticationConfig',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +59,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
           BASE_DIR / 'mini_blog/templates/',
-          BASE_DIR / 'blog/templates/'
+          BASE_DIR / 'blog/templates/',
+          BASE_DIR / 'authentication/templates/',
         ],
         'APP_DIRS': True,
         'OPTIONS': {

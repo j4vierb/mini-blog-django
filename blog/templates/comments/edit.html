@@ -3,6 +3,7 @@
 {% block content %}
 <div class="edit-comment">
   <h1>Edit Comment</h1>
+  <p>Return to <a href="{% url 'blog-detail' blog_id %}">blog page</a></p>
   <form method="POST">
     {% csrf_token %}
     {{ form.as_table }}
