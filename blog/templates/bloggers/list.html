@@ -1,0 +1,17 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+  <h1>Bloggers</h1>
+  <table>
+    <tr>
+      <th>Username</th>
+      <th>Posts count</th>
+    </tr>
+    {% for blogger in bloggers %}
+      <tr>
+        <td> <a href="{{ blogger.get_absolute_url }}">{{ blogger.username }}</a> </td>
+        <td>{{ blogger.blogs.all|length }}</td>  
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

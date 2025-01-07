@@ -11,9 +11,13 @@
 
   <div class="blogger-posts">
     <h2>Posts</h2>
-    {% for blog in blogs %}
-      <h3> <a href="{{blog.get_absolute_url }}">{{ blog.title }} ({{ blog.date_posted }})</a> </h3>
-    {% endfor %}
+    {% if blogs %}
+      {% for blog in blogs %}
+        <h3> <a href="{{blog.get_absolute_url }}">{{ blog.title }} ({{ blog.date_posted }})</a> </h3>
+      {% endfor %}
+    {% else %}
+      <h3>This blogger has no posts yet.</h3>
+    {% endif %}
   </div>
   {% endif %}
 {% endblock %}

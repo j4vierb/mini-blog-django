@@ -14,7 +14,6 @@ class BlogListView(ListView):
   ordering = ['-date_posted']
   paginate_by = 5
 
-# TODO: Contains link to add comments at end for logged in users (see Comment form page)
 class BlogDetailView(DetailView):
   model = Blog
   template_name = 'blogs/detail.html'
@@ -24,6 +23,16 @@ class BlogDetailView(DetailView):
     context = super().get_context_data(**kwargs)
     context['comments'] = Comment.objects.all().filter(blog_id=self.kwargs['pk']).order_by('date_posted')
     
+    return context
+
+class BloggerListView(ListView):
+  model = Blogger
+  template_name = 'bloggers/list.html'
+  context_object_name = 'bloggers'
+  ordering = ['username']
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
     return context
 
 class BloggerDetailView(DetailView):
@@ -48,7 +57,8 @@ class CommentEditView(UpdateView):
     blog_id = self.kwargs['blog_id']
     return Blog.objects.get(id=blog_id).get_absolute_url()
 
-# TODO: This isn't working yet
+# TODO: This isn't working yet to create a new comment because we don't have
+# authentication.
 class CommentCreateView(CreateView):
   model = Comment
   template_name = 'comments/edit.html'
