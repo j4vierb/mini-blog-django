@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
 # Create your views here.
 def main(request):
@@ -15,7 +15,6 @@ class BlogListView(ListView):
   paginate_by = 5
 
 # TODO: Contains link to add comments at end for logged in users (see Comment form page)
-# TODO: 
 class BlogDetailView(DetailView):
   model = Blog
   template_name = 'blogs/detail.html'
@@ -37,3 +36,20 @@ class BloggerDetailView(DetailView):
     context['blogs'] = Blog.objects.filter(blogger_id=self.kwargs['pk']).order_by('-date_posted')
 
     return context
+
+class CommentEditView(UpdateView):
+  model = Comment
+  template_name = 'comments/edit.html'
+  context_object_name = 'comment'
+  fields = ['content']
+
+  def get_success_url(self):
+    """GET current blog id and redirect to blog detail page"""
+    blog_id = self.kwargs['blog_id']
+    return Blog.objects.get(id=blog_id).get_absolute_url()
+
+# TODO: This isn't working yet
+class CommentCreateView(CreateView):
+  model = Comment
+  template_name = 'comments/edit.html'
+  fields = ['content']

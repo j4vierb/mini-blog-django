@@ -59,7 +59,7 @@ class Comment(models.Model):
     help_text=_('Select the blog that this comment belongs to'),
     on_delete=models.CASCADE
   )
-  blogger = models.OneToOneField(
+  blogger = models.ForeignKey(
     'Blogger',
     related_name='comment',
     help_text=_('Select the author of the comment'),

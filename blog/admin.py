@@ -14,7 +14,7 @@ class BloggerAdmin(admin.ModelAdmin):
   search_fields = ('username', 'email')
 
 class CommentAdmin(admin.ModelAdmin):
-  list_display = ('id', 'content', 'date_posted')
+  list_display = ('id', 'blogger', 'content', 'date_posted')
   list_filter = ('date_posted',)
   search_fields = ('content',)
 
