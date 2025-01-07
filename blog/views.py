@@ -67,7 +67,9 @@ class CommentCreateView(CreateView):
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
-    context['blog_id'] = self.kwargs['blog_id']
+    blog_id = self.kwargs['blog_id']
+    context['blog'] = Blog.objects.all().filter(id=blog_id).first()
+    context['blog_id'] = blog_id
 
     return context
 
