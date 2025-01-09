@@ -31,11 +31,6 @@ class Blog(models.Model):
     db_table = 'blog'
 
 class Blogger(models.Model):
-  username = models.CharField(
-    max_length=100,
-    help_text=_('Enter the username of the blogger')
-  )
-  email = models.EmailField(help_text=_('Enter the email of the blogger'))
   bio = models.TextField(
     help_text=_('Enter the bio of the blogger'),
     blank=True
@@ -49,7 +44,7 @@ class Blogger(models.Model):
   )
 
   def __str__(self):
-    return self.username
+    return self.user.username
   
   def get_absolute_url(self):
     return reverse('blogger-detail', kwargs={'pk': self.pk})
@@ -67,8 +62,8 @@ class Comment(models.Model):
     help_text=_('Select the blog that this comment belongs to'),
     on_delete=models.CASCADE
   )
-  blogger = models.ForeignKey(
-    'Blogger',
+  author = models.ForeignKey(
+    User,
     related_name='comment',
     help_text=_('Select the author of the comment'),
     on_delete=models.DO_NOTHING # when Blogger is deleted, the comment remains
@@ -79,7 +74,11 @@ class Comment(models.Model):
   )
 
   def __str__(self):
-    return f'{self.content[:20]}...'
+    len_title = 75
+    if len(self.content) <= len_title:
+      return self.content
+    
+    return f'{self.content[:len_title]}...'
   
   def get_absolute_url(self):
     return reverse('blog-detail', kwargs={'pk': self.blog.pk})

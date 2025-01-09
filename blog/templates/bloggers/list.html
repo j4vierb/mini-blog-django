@@ -2,14 +2,14 @@
 
 {% block content %}
   <h1>Bloggers</h1>
-  <table>
-    <tr>
+  <table class="table">
+    <thead>
       <th>Username</th>
       <th>Posts count</th>
-    </tr>
+    </thead>
     {% for blogger in bloggers %}
       <tr>
-        <td> <a href="{{ blogger.get_absolute_url }}">{{ blogger.username }}</a> </td>
+        <td> <a href="{{ blogger.get_absolute_url }}">{{ blogger.user.username }}</a> </td>
         <td>{{ blogger.blogs.all|length }}</td>  
       </tr>
     {% endfor %}

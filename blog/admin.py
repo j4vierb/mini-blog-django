@@ -10,11 +10,10 @@ class BlogAdmin(admin.ModelAdmin):
   search_fields = ('title', 'content')
 
 class BloggerAdmin(admin.ModelAdmin):
-  list_display = ('id', 'username', 'email')
-  search_fields = ('username', 'email')
+  list_display = ('id', 'bio', 'user')
 
 class CommentAdmin(admin.ModelAdmin):
-  list_display = ('id', 'blogger', 'content', 'date_posted')
+  list_display = ('id', 'author', 'content', 'date_posted')
   list_filter = ('date_posted',)
   search_fields = ('content',)
 

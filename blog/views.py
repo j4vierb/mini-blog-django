@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.contrib.auth.models import User
 
 # Create your views here.
 def main(request):
@@ -29,7 +30,6 @@ class BloggerListView(ListView):
   model = Blogger
   template_name = 'bloggers/list.html'
   context_object_name = 'bloggers'
-  ordering = ['username']
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
@@ -75,6 +75,6 @@ class CommentCreateView(CreateView):
     user = self.request.user
     
     form.instance.blog = Blog.objects.get(id=blog_id)
-    form.instance.blogger = Blogger.objects.get(user=user)
+    form.instance.author = User.objects.get(id=user.id)
   
     return super().form_valid(form)
