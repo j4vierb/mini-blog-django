@@ -26,7 +26,7 @@ class BlogDetailView(DetailView):
     def get_context_data(self, **kwargs):
         md = markdown.Markdown(extensions=["fenced_code", "codehilite"])
         context = super().get_context_data(**kwargs)
-        
+
         context["blog"].content = md.convert(context["blog"].content)
 
         context["comments"] = (
