@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 from django.contrib.auth.models import User
 from .models import Blog, Blogger, Comment
+import markdown
 
 
 # Create your views here.
@@ -23,7 +24,11 @@ class BlogDetailView(DetailView):
     context_object_name = "blog"
 
     def get_context_data(self, **kwargs):
+        md = markdown.Markdown(extensions=["fenced_code", "codehilite"])
         context = super().get_context_data(**kwargs)
+        
+        context["blog"].content = md.convert(context["blog"].content)
+
         context["comments"] = (
             Comment.objects.all()
             .filter(blog_id=self.kwargs["pk"])

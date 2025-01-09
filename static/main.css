@@ -8,6 +8,18 @@
   text-decoration: none;
 }
 
+body {
+  min-height: 100vh;
+}
+
+body header {
+  min-height: 8vh;
+}
+
+body main {
+  min-height: 92vh;
+}
+
 main {
   display: flex;
   flex-direction: row;
@@ -26,6 +38,7 @@ main nav {
   display: flex;
   flex-direction: column;
   row-gap: 20px;
+  width: 100%;
 }
 
 div.edit-comment form {
