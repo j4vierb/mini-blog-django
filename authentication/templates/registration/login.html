@@ -28,7 +28,13 @@
       </tr>
     </table>
     <input type="submit" value="login">
-    <input type="hidden" name="next" value="{% url 'blogs' %}">
+    
+    {% if next %}
+      <input type="hidden" name="next" value="{{ next }}">
+    {% else %}
+      <input type="hidden" name="next" value="{% url 'blogs' %}">
+    {% endif %}
+ 
   </form>
 
   {# Assumes you set up the password_reset view in your URLconf #}

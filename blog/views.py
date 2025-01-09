@@ -57,9 +57,6 @@ class CommentEditView(UpdateView):
     blog_id = self.kwargs['blog_id']
     return Blog.objects.get(id=blog_id).get_absolute_url()
 
-# TODO: Logged out users will be directed to the login page to log in,
-# before they can add comments. After logging in, they will be redirected
-# back to the blog page they wanted to comment on.
 class CommentCreateView(CreateView):
   model = Comment
   template_name = 'comments/edit.html'
